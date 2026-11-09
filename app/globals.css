@@ -302,3 +302,11 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* Installed app: keep the shell feeling native and avoid pull-to-refresh */
+@media (display-mode: standalone) {
+  html,
+  body {
+    overscroll-behavior-y: none;
+  }
+}

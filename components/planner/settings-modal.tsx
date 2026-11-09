@@ -3,6 +3,7 @@
 import React from 'react'
 import type { AppSettings } from '@/lib/planner-data'
 import { Sheet } from '@/components/planner/sheet'
+import { InstallApp } from '@/components/planner/install-app'
 import {
   SFCloseIcon,
   SFFlameIcon,
@@ -115,6 +116,8 @@ export function SettingsModal({
           <Switch on={settings.showGymProgression} trackClass="bg-gym" />
         </button>
       </div>
+
+      <InstallApp />
     </Sheet>
   )
 }

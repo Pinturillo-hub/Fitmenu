@@ -272,6 +272,23 @@ export function SFMoonStarsIcon({ className = 'w-3.5 h-3.5' }: { className?: str
   )
 }
 
+export function SFPhoneIcon({ className = 'w-4 h-4' }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      className={className}
+      stroke="currentColor"
+      strokeWidth="1.75"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <rect x="7" y="2.75" width="10" height="18.5" rx="2.75" />
+      <path d="M10.5 18.25h3" />
+    </svg>
+  )
+}
+
 export function SFCalendarIcon({ className = 'w-3.5 h-3.5' }: { className?: string }) {
   return (
     <svg

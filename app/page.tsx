@@ -251,7 +251,7 @@ export default function HomePage() {
       }`}
     >
       <main className="relative z-10 w-full max-w-[430px] min-h-dvh px-4 pb-32 flex flex-col gap-3">
-        <header className="scroll-edge sticky top-0 z-30 flex items-center justify-between gap-2 pt-3 pb-1">
+        <header className="scroll-edge sticky top-0 z-30 flex items-center justify-between gap-2 pt-[max(0.75rem,env(safe-area-inset-top))] pb-1">
           <div className="flex items-center gap-2 shrink-0">
             {isMeals ? (
               <SFPlateIcon className="w-4 h-4 text-tab-ink" />
