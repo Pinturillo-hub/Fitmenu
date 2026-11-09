@@ -7,6 +7,8 @@ export type DayKey =
   | 'sabado'
   | 'domingo'
 
+export type MealSlot = 'comida' | 'cena'
+
 export interface DishItem {
   id: string
   name: string
@@ -63,13 +65,13 @@ export const DAYS: {
   letter: string
   dayOffset: number
 }[] = [
-  { key: 'lunes', label: 'Lunes', short: 'LUN', letter: 'L', dayOffset: 0 },
-  { key: 'martes', label: 'Martes', short: 'MAR', letter: 'M', dayOffset: 1 },
-  { key: 'miercoles', label: 'Miércoles', short: 'MIÉ', letter: 'X', dayOffset: 2 },
-  { key: 'jueves', label: 'Jueves', short: 'JUE', letter: 'J', dayOffset: 3 },
-  { key: 'viernes', label: 'Viernes', short: 'VIE', letter: 'V', dayOffset: 4 },
-  { key: 'sabado', label: 'Sábado', short: 'SÁB', letter: 'S', dayOffset: 5 },
-  { key: 'domingo', label: 'Domingo', short: 'DOM', letter: 'D', dayOffset: 6 },
+  { key: 'lunes', label: 'Lunes', short: 'Lun', letter: 'L', dayOffset: 0 },
+  { key: 'martes', label: 'Martes', short: 'Mar', letter: 'M', dayOffset: 1 },
+  { key: 'miercoles', label: 'Miércoles', short: 'Mié', letter: 'X', dayOffset: 2 },
+  { key: 'jueves', label: 'Jueves', short: 'Jue', letter: 'J', dayOffset: 3 },
+  { key: 'viernes', label: 'Viernes', short: 'Vie', letter: 'V', dayOffset: 4 },
+  { key: 'sabado', label: 'Sábado', short: 'Sáb', letter: 'S', dayOffset: 5 },
+  { key: 'domingo', label: 'Domingo', short: 'Dom', letter: 'D', dayOffset: 6 },
 ]
 
 export const EMPTY_WEEKLY_MEALS: WeeklyMeals = {
@@ -312,9 +314,14 @@ const MONTHS_SHORT = [
   'dic',
 ]
 
-// Reference Monday for week 0 (12 Oct 2026)
-export function getWeekMeta(weekOffset: number) {
-  const baseMonday = new Date(2026, 9, 12)
+// Week 0 is the week (Monday to Sunday) that contains `today`
+export function getWeekMeta(weekOffset: number, today: Date) {
+  const todayIndex = (today.getDay() + 6) % 7
+  const baseMonday = new Date(
+    today.getFullYear(),
+    today.getMonth(),
+    today.getDate() - todayIndex
+  )
   const monday = new Date(baseMonday)
   monday.setDate(baseMonday.getDate() + weekOffset * 7)
 
@@ -333,10 +340,10 @@ export function getWeekMeta(weekOffset: number) {
 
   let title = ''
   if (weekOffset === 0) title = 'Esta semana'
-  else if (weekOffset === -1) title = 'Sem. pasada'
-  else if (weekOffset === 1) title = 'Próx. semana'
-  else if (weekOffset < -1) title = `Hace ${Math.abs(weekOffset)} sem.`
-  else title = `En +${weekOffset} sem.`
+  else if (weekOffset === -1) title = 'Semana pasada'
+  else if (weekOffset === 1) title = 'Próxima semana'
+  else if (weekOffset < -1) title = `Hace ${Math.abs(weekOffset)} semanas`
+  else title = `En ${weekOffset} semanas`
 
   const dayDates: Record<DayKey, number> = {
     lunes: monday.getDate(),
@@ -353,5 +360,6 @@ export function getWeekMeta(weekOffset: number) {
     dateRange,
     dayDates,
     isCurrentWeek: weekOffset === 0,
+    todayIndex: weekOffset === 0 ? todayIndex : -1,
   }
 }

@@ -2,11 +2,14 @@
   "name": "my-project",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "packageManager": "pnpm@12.3.4",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "test": "node --test lib/*.test.ts",
     "deploy": "pnpm run build && echo 'Push to main branch to trigger GitHub Pages deployment'"
   },
   "dependencies": {
@@ -15,7 +18,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^1.16.0",
-    "next": "16.4.0",
+    "next": "16.4.6",
     "react": "^19",
     "react-dom": "^19",
     "shadcn": "^4.11.0",

@@ -5,7 +5,7 @@ import './globals.css'
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
-  weight: ['400', '500', '600', '700'],
+  weight: ['400', '500', '600'],
   display: 'swap',
 })
 
@@ -29,7 +29,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className={inter.variable}>
-      <body className="font-sans antialiased selection:bg-[#007AFF]/15 selection:text-[#1C1C1E]">
+      <body className="font-sans antialiased selection:bg-tab/20">
         {children}
       </body>
     </html>

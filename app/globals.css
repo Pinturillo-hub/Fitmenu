@@ -1,12 +1,52 @@
 @import 'tailwindcss';
 
 :root {
-  --background: #F2F2F7;
-  --foreground: #1C1C1E;
+  --background: #f2f2f7;
+  --surface: #ffffff;
+
+  --ink: #1c1c1e;
+  --ink-2: #55555a;
+  --ink-3: #737378;
+
+  --well: rgba(120, 120, 128, 0.09);
+  --well-strong: rgba(120, 120, 128, 0.16);
+  --hairline: rgba(60, 60, 67, 0.14);
+  --danger: #c7222b;
+
+  --meals: #ff9500;
+  --meals-ink: #c84d08;
+  --gym: #34c759;
+  --gym-ink: #188038;
+
+  --tab: var(--meals);
+  --tab-ink: var(--meals-ink);
+
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.theme-gym {
+  --tab: var(--gym);
+  --tab-ink: var(--gym-ink);
 }
 
 @theme inline {
   --font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', var(--font-inter), system-ui, sans-serif;
+
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-well: var(--well);
+  --color-well-strong: var(--well-strong);
+  --color-hairline: var(--hairline);
+  --color-danger: var(--danger);
+  --color-meals: var(--meals);
+  --color-meals-ink: var(--meals-ink);
+  --color-gym: var(--gym);
+  --color-gym-ink: var(--gym-ink);
+  --color-tab: var(--tab);
+  --color-tab-ink: var(--tab-ink);
 }
 
 @layer base {
@@ -14,12 +54,16 @@
     -webkit-tap-highlight-color: transparent;
   }
   body {
-    background-color: #F2F2F7;
-    color: #1C1C1E;
+    background-color: var(--background);
+    color: var(--ink);
     font-family: var(--font-sans);
-    letter-spacing: -0.011em;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+  button:focus-visible,
+  [role='switch']:focus-visible {
+    outline: 2px solid var(--tab-ink);
+    outline-offset: 2px;
   }
 }
 
@@ -27,179 +71,227 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* Native iOS Grouped Card */
-.apple-card {
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 0.5px solid rgba(60, 60, 67, 0.09);
-  box-shadow:
-    0 1px 2px rgba(0, 0, 0, 0.025),
-    0 6px 18px -6px rgba(0, 0, 0, 0.045);
+@layer components {
+  /* Content layer: solid grouped surface */
+  .surface-card {
+    background-color: var(--surface);
+    box-shadow:
+      0 0 0 0.5px rgba(60, 60, 67, 0.08),
+      0 1px 2px rgba(0, 0, 0, 0.04);
+  }
+
+  /* Control layer: Liquid Glass. Translucent, blurred, with a specular rim */
+  .glass {
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.6);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    backdrop-filter: blur(20px) saturate(180%);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.9),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.04),
+      0 0 0 0.5px rgba(60, 60, 67, 0.1),
+      0 6px 20px -6px rgba(0, 0, 0, 0.12);
+  }
+
+  .glass::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    pointer-events: none;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.95) 0%,
+      rgba(255, 255, 255, 0.2) 38%,
+      rgba(255, 255, 255, 0.2) 62%,
+      rgba(255, 255, 255, 0.8) 100%
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+      linear-gradient(#000 0 0) content-box exclude,
+      linear-gradient(#000 0 0);
+  }
+
+  .glass-dock {
+    background-color: rgba(255, 255, 255, 0.66);
+    -webkit-backdrop-filter: blur(28px) saturate(190%);
+    backdrop-filter: blur(28px) saturate(190%);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.95),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.04),
+      0 0 0 0.5px rgba(60, 60, 67, 0.12),
+      0 12px 32px -8px rgba(0, 0, 0, 0.2);
+  }
+
+  .glass-lens {
+    background-color: rgba(255, 255, 255, 0.92);
+    box-shadow:
+      inset 0 1px 0 #ffffff,
+      0 0 0 0.5px rgba(60, 60, 67, 0.08),
+      0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .glass-sheet {
+    background-color: rgba(248, 248, 252, 0.8);
+    -webkit-backdrop-filter: blur(40px) saturate(180%);
+    backdrop-filter: blur(40px) saturate(180%);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.95),
+      0 0 0 0.5px rgba(60, 60, 67, 0.12),
+      0 24px 56px -12px rgba(0, 0, 0, 0.28);
+    animation: sheetIn 300ms var(--ease);
+  }
+
+  .sheet-backdrop {
+    background-color: rgba(0, 0, 0, 0.28);
+    animation: fadeIn 200ms var(--ease);
+  }
+
+  /* Soft fade under the sticky header so content scrolls beneath the glass */
+  .scroll-edge::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    bottom: -16px;
+    left: -16px;
+    right: -16px;
+    pointer-events: none;
+    background: linear-gradient(
+      to bottom,
+      rgba(242, 242, 247, 0.94) 0%,
+      rgba(242, 242, 247, 0.72) 60%,
+      rgba(242, 242, 247, 0) 100%
+    );
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 55%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 0%, #000 55%, transparent 100%);
+  }
+
+  /* Primary action in the active tab color */
+  .tint-button {
+    background-color: var(--tab-ink);
+    color: #ffffff;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.28),
+      0 6px 16px -6px rgba(0, 0, 0, 0.3);
+  }
+
+  .field {
+    background-color: var(--well);
+    border: 1px solid transparent;
+    transition:
+      background-color 150ms var(--ease),
+      border-color 150ms var(--ease),
+      box-shadow 150ms var(--ease);
+  }
+
+  .field:focus {
+    outline: none;
+    background-color: #ffffff;
+    border-color: var(--tab);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--tab) 24%, transparent);
+  }
+
+  .t-ui {
+    transition:
+      transform 150ms var(--ease),
+      background-color 150ms var(--ease),
+      color 150ms var(--ease),
+      opacity 150ms var(--ease),
+      border-color 150ms var(--ease);
+  }
+
+  .t-move {
+    transition:
+      transform 300ms var(--ease),
+      opacity 200ms var(--ease);
+  }
+
+  .apple-view-enter-right {
+    animation: viewInRight 240ms var(--ease);
+  }
+
+  .apple-view-enter-left {
+    animation: viewInLeft 240ms var(--ease);
+  }
+
+  .apple-week-slide-next {
+    animation: weekNext 220ms var(--ease);
+  }
+
+  .apple-week-slide-prev {
+    animation: weekPrev 220ms var(--ease);
+  }
 }
 
-/* Native iOS Bar Surface */
-.apple-glass {
-  background: rgba(255, 255, 255, 0.88);
-  backdrop-filter: blur(28px) saturate(190%);
-  -webkit-backdrop-filter: blur(28px) saturate(190%);
-  border: 0.5px solid rgba(60, 60, 67, 0.11);
-  box-shadow:
-    0 1px 3px rgba(0, 0, 0, 0.03),
-    inset 0 0.5px 0 rgba(255, 255, 255, 1);
-}
-
-/* Floating Bottom Dock */
-.apple-glass-dock {
-  background: rgba(250, 250, 252, 0.86);
-  backdrop-filter: blur(36px) saturate(200%);
-  -webkit-backdrop-filter: blur(36px) saturate(200%);
-  border: 0.5px solid rgba(60, 60, 67, 0.13);
-  box-shadow:
-    0 10px 28px -6px rgba(0, 0, 0, 0.13),
-    0 2px 6px rgba(0, 0, 0, 0.04),
-    inset 0 0.5px 0 rgba(255, 255, 255, 0.95);
-}
-
-.apple-glass-pill-active {
-  background: #FFFFFF;
-  border: 0.5px solid rgba(0, 0, 0, 0.05);
-  box-shadow:
-    0 2px 8px rgba(0, 0, 0, 0.08),
-    0 1px 2px rgba(0, 0, 0, 0.04);
-}
-
-/* Meal Slot Interactive States — Warm Lunch & Cool Dinner Tints */
-.apple-meal-cell-lunch {
-  background: linear-gradient(155deg, rgba(255, 149, 0, 0.085) 0%, rgba(255, 149, 0, 0.025) 100%);
-  border: 0.5px solid rgba(255, 149, 0, 0.18);
-  transition: all 0.16s cubic-bezier(0.32, 0.72, 0, 1);
-}
-
-.apple-meal-cell-lunch:hover {
-  background: linear-gradient(155deg, rgba(255, 149, 0, 0.13) 0%, rgba(255, 149, 0, 0.05) 100%);
-}
-
-.apple-meal-cell-lunch:active {
-  transform: scale(0.98);
-}
-
-.apple-meal-cell-dinner {
-  background: linear-gradient(155deg, rgba(88, 86, 214, 0.08) 0%, rgba(88, 86, 214, 0.025) 100%);
-  border: 0.5px solid rgba(88, 86, 214, 0.17);
-  transition: all 0.16s cubic-bezier(0.32, 0.72, 0, 1);
-}
-
-.apple-meal-cell-dinner:hover {
-  background: linear-gradient(155deg, rgba(88, 86, 214, 0.125) 0%, rgba(88, 86, 214, 0.05) 100%);
-}
-
-.apple-meal-cell-dinner:active {
-  transform: scale(0.98);
-}
-
-.apple-meal-cell-empty {
-  background: rgba(118, 118, 128, 0.035);
-  border: 0.5px dashed rgba(60, 60, 67, 0.14);
-  transition: background-color 0.15s ease, transform 0.15s cubic-bezier(0.32, 0.72, 0, 1);
-}
-
-.apple-meal-cell-empty:hover {
-  background: rgba(118, 118, 128, 0.065);
-}
-
-.apple-meal-cell-empty:active {
-  transform: scale(0.98);
-}
-
-/* Native iOS Input Field */
-.apple-glass-input {
-  background: rgba(118, 118, 128, 0.075);
-  border: 0.5px solid transparent;
-  transition: all 0.16s cubic-bezier(0.32, 0.72, 0, 1);
-}
-
-.apple-glass-input:focus {
-  background: #FFFFFF;
-  border-color: rgba(255, 122, 0, 0.45);
-  box-shadow: 0 0 0 3px rgba(255, 122, 0, 0.12);
-}
-
-.apple-glass-input-gym:focus {
-  background: #FFFFFF;
-  border-color: rgba(52, 199, 89, 0.5);
-  box-shadow: 0 0 0 3px rgba(52, 199, 89, 0.13);
-}
-
-/* iOS Modal Sheet — Solid, Crisp & Instant */
-.apple-glass-sheet {
-  background: #F2F2F7;
-  border: 0.5px solid rgba(60, 60, 67, 0.15);
-  box-shadow:
-    0 24px 54px -10px rgba(0, 0, 0, 0.24),
-    0 4px 12px rgba(0, 0, 0, 0.08);
-}
-
-.apple-backdrop {
-  background-color: rgba(0, 0, 0, 0.32);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-}
-
-/* Apple Spring Transition for Interactive Pills & Dock */
-.apple-spring-transition {
-  transition: transform 0.34s cubic-bezier(0.32, 0.72, 0, 1), opacity 0.24s ease;
-}
-
-.apple-view-enter-right {
-  animation: appleSlideInFromRight 0.24s cubic-bezier(0.32, 0.72, 0, 1);
-}
-
-.apple-view-enter-left {
-  animation: appleSlideInFromLeft 0.24s cubic-bezier(0.32, 0.72, 0, 1);
-}
-
-.apple-week-slide-next {
-  animation: appleWeekSlideNext 0.22s cubic-bezier(0.32, 0.72, 0, 1);
-}
-
-.apple-week-slide-prev {
-  animation: appleWeekSlidePrev 0.22s cubic-bezier(0.32, 0.72, 0, 1);
-}
-
-@keyframes appleSlideInFromRight {
-  0% {
+@keyframes viewInRight {
+  from {
     transform: translate3d(8px, 0, 0);
   }
-  100% {
+  to {
     transform: translate3d(0, 0, 0);
   }
 }
 
-@keyframes appleSlideInFromLeft {
-  0% {
+@keyframes viewInLeft {
+  from {
     transform: translate3d(-8px, 0, 0);
   }
-  100% {
+  to {
     transform: translate3d(0, 0, 0);
   }
 }
 
-@keyframes appleWeekSlideNext {
-  0% {
+@keyframes weekNext {
+  from {
     transform: translate3d(6px, 0, 0);
   }
-  100% {
+  to {
     transform: translate3d(0, 0, 0);
   }
 }
 
-@keyframes appleWeekSlidePrev {
-  0% {
+@keyframes weekPrev {
+  from {
     transform: translate3d(-6px, 0, 0);
   }
-  100% {
+  to {
     transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes sheetIn {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 12px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
   }
 }
 

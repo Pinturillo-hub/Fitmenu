@@ -3,9 +3,6 @@ const nextConfig = {
   output: 'export',
   basePath: '/Fitmenu',
   assetPrefix: '/Fitmenu/',
-  typescript: {
-    ignoreBuildErrors: true,
-  },
   images: {
     unoptimized: true,
   },

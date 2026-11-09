@@ -7,7 +7,7 @@ export function SFPlateIcon({ className = 'w-4 h-4' }: { className?: string }) {
       fill="none"
       className={className}
       stroke="currentColor"
-      strokeWidth="1.65"
+      strokeWidth="1.75"
       strokeLinecap="round"
       strokeLinejoin="round"
     >
@@ -42,7 +42,7 @@ export function SFStackIcon({ className = 'w-4 h-4' }: { className?: string }) {
       fill="none"
       className={className}
       stroke="currentColor"
-      strokeWidth="1.65"
+      strokeWidth="1.75"
       strokeLinecap="round"
       strokeLinejoin="round"
     >
@@ -60,7 +60,7 @@ export function SFSlidersIcon({ className = 'w-4 h-4' }: { className?: string })
       fill="none"
       className={className}
       stroke="currentColor"
-      strokeWidth="1.65"
+      strokeWidth="1.75"
       strokeLinecap="round"
       strokeLinejoin="round"
     >
@@ -79,7 +79,7 @@ export function SFPlusIcon({ className = 'w-4 h-4' }: { className?: string }) {
       fill="none"
       className={className}
       stroke="currentColor"
-      strokeWidth="1.9"
+      strokeWidth="1.75"
       strokeLinecap="round"
       strokeLinejoin="round"
     >
@@ -95,7 +95,7 @@ export function SFCloseIcon({ className = 'w-4 h-4' }: { className?: string }) {
       fill="none"
       className={className}
       stroke="currentColor"
-      strokeWidth="2"
+      strokeWidth="1.75"
       strokeLinecap="round"
       strokeLinejoin="round"
     >
@@ -111,7 +111,7 @@ export function SFCheckIcon({ className = 'w-4 h-4' }: { className?: string }) {
       fill="none"
       className={className}
       stroke="currentColor"
-      strokeWidth="2.1"
+      strokeWidth="1.75"
       strokeLinecap="round"
       strokeLinejoin="round"
     >
@@ -127,7 +127,7 @@ export function SFTrashIcon({ className = 'w-4 h-4' }: { className?: string }) {
       fill="none"
       className={className}
       stroke="currentColor"
-      strokeWidth="1.65"
+      strokeWidth="1.75"
       strokeLinecap="round"
       strokeLinejoin="round"
     >
@@ -163,7 +163,7 @@ export function SFTrendUpIcon({ className = 'w-3.5 h-3.5' }: { className?: strin
       fill="none"
       className={className}
       stroke="currentColor"
-      strokeWidth="1.85"
+      strokeWidth="1.75"
       strokeLinecap="round"
       strokeLinejoin="round"
     >
@@ -198,7 +198,7 @@ export function SFFlameIcon({ className = 'w-3.5 h-3.5' }: { className?: string 
       fill="none"
       className={className}
       stroke="currentColor"
-      strokeWidth="1.7"
+      strokeWidth="1.75"
       strokeLinecap="round"
       strokeLinejoin="round"
     >
@@ -214,7 +214,7 @@ export function SFChevronLeftIcon({ className = 'w-3.5 h-3.5' }: { className?: s
       fill="none"
       className={className}
       stroke="currentColor"
-      strokeWidth="2.1"
+      strokeWidth="1.75"
       strokeLinecap="round"
       strokeLinejoin="round"
     >
@@ -230,7 +230,7 @@ export function SFChevronRightIcon({ className = 'w-3.5 h-3.5' }: { className?: 
       fill="none"
       className={className}
       stroke="currentColor"
-      strokeWidth="2.1"
+      strokeWidth="1.75"
       strokeLinecap="round"
       strokeLinejoin="round"
     >
